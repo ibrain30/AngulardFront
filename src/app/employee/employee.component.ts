@@ -34,7 +34,7 @@ export class EmployeeComponent implements OnInit {
   isFeMale = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  displayedColumns: string[] = ['select', 'EmployeeFirstName', 'LastName', 'DateofBirth', 'EmailId', 'Gender', 'Country', 'State', 'City', 'EmployeeAdresse', 'Pincode', 'Edit', 'Delete'];
+  displayedColumns: string[] = ['select', 'EmployeeFirstName', 'EmployeeLastName', 'EmployeeDateNaiss', 'EmployeeDateNaiss','EmployeeGender','EmployeeDateEmbauche', 'EmployeeSalary', 'EmployeeAdresse', 'EmployeeAdresse', 'EmployeeDesignation', 'Edit', 'Delete'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -59,9 +59,9 @@ export class EmployeeComponent implements OnInit {
       EmployeeDesignation: ['', [Validators.required]],
       
     });
-    // this.FillCountryDDL();
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
+    this.FillCountryDDL();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   isAllSelected() {

@@ -12,7 +12,7 @@
           <tr>
             <td class="tbl1">
               <mat-form-field class="demo-full-width">
-                <input formControlName="EmployeeFirstName" matTooltip="Enter Employee FirstName" matInput placeholder="FirstName" autocomplete="off">
+                <input formControlName="EmployeeFirstName" matTooltip="Enter Employee FirstName" matInput placeholder="Nom :  " autocomplete="off">
               </mat-form-field>
               <mat-error>
                 <span *ngIf="!employeeForm.get('EmployeeFirstName').value && employeeForm.get('EmployeeFirstName').touched"></span>
@@ -20,7 +20,7 @@
             </td>
             <td class="tbl1">
               <mat-form-field class="demo-full-width">
-                <input formControlName="EmployeeLastName" matTooltip="Enter Employee LastName" matInput placeholder="EmployeeLastName" autocomplete="off">
+                <input formControlName="EmployeeLastName" matTooltip="Enter Employee LastName" matInput placeholder="Prenom : " autocomplete="off">
               </mat-form-field>
               <mat-error>
                 <span *ngIf="!employeeForm.get('EmployeeLastName').value && employeeForm.get('EmployeeLastName').touched"></span>
@@ -28,7 +28,7 @@
             </td>
             <td class="tbl1">
               <mat-form-field class="demo-full-width">
-                <input matInput [matDatepicker]="picker" matTooltip="Enter Date Of Birth" formControlName="EmployeeDateNaiss" placeholder="Date Of Birth" autocomplete="off">
+                <input matInput [matDatepicker]="picker" matTooltip="Enter Date Of Birth" formControlName="EmployeeDateNaiss" placeholder="Date de Naissance : " autocomplete="off">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -38,9 +38,9 @@
             </td>
             <td class="tbl1">
               <mat-form-field class="demo-full-width">
-                <input matInput [matDatepicker]="picker" matTooltip="Enter Date Of Birth" formControlName="EmployeeDateEmbauche" placeholder="Date d'embauche" autocomplete="off">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                <input matInput [matDatepicker]="picker1" matTooltip="Enter Date Of Birth" formControlName="EmployeeDateEmbauche" placeholder="Date d'embauche : " autocomplete="off">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
               <mat-error>
                 <span *ngIf="!employeeForm.get('EmployeeDateEmbauche').value && employeeForm.get('EmployeeDateEmbauche').touched"></span>
@@ -52,7 +52,7 @@
         <tr>
           <td class="tbl1">
             <mat-form-field class="demo-full-width">
-              <input formControlName="EmployeeDesignation" matTooltip="Enter Employee FirstName" matInput placeholder="EmployeeDesignation" autocomplete="off">
+              <input formControlName="EmployeeDesignation" matTooltip="Enter Employee FirstName" matInput placeholder="Poste : " autocomplete="off">
             </mat-form-field>
             <mat-error>
               <span *ngIf="!employeeForm.get('EmployeeDesignation').value && employeeForm.get('EmployeeDesignation').touched"></span>
@@ -61,7 +61,7 @@
 
           <td class="tbl1">
             <mat-form-field class="demo-full-width">
-              <input formControlName="EmployeeSalary" matTooltip="EmployeeSalary" matInput placeholder="EmployeeSalary" autocomplete="off">
+              <input formControlName="EmployeeSalary" matTooltip="EmployeeSalary" matInput placeholder="Salaire : " autocomplete="off">
             </mat-form-field>
             <mat-error>
               <span *ngIf="!employeeForm.get('EmployeeSalary').value && employeeForm.get('EmployeeSalary').touched"></span>
@@ -70,7 +70,7 @@
 
           <td class="tbl1">
             <mat-form-field class="demo-full-width">
-              <input formControlName="EmployeeAdresse" matTooltip="EmployeeAdresse" matInput placeholder="EmployeeAdresse" autocomplete="off">
+              <input formControlName="EmployeeAdresse" matTooltip="EmployeeAdresse" matInput placeholder="Adresse : " autocomplete="off">
             </mat-form-field>
             <mat-error>
               <span *ngIf="!employeeForm.get('EmployeeAdresse').value && employeeForm.get('EmployeeAdresse').touched"></span>
@@ -78,7 +78,7 @@
           </td>
 
           <td class="tbl1">
-            <span>Gendre </span>&nbsp;
+            <span>Gendre  </span>&nbsp;
             <mat-radio-group matTooltip="Enter Gender" formControlName="EmployeeGender">
               <mat-radio-button value="0" [checked]="isMale">M</mat-radio-button>&nbsp;&nbsp;
               <mat-radio-button value="1" [checked]="isFeMale">F</mat-radio-button>&nbsp;&nbsp;
@@ -90,8 +90,8 @@
       </tr>
       <tr>
       <td class="content-center">
-        <button type="submit" mat-raised-button color="accent" matTooltip="Submit" [disabled]="!employeeForm.valid">Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
-        <button type="reset" mat-raised-button color="accent" matTooltip="Reset" (click)="resetForm()">Reset</button>
+        <button type="submit" mat-raised-button color="accent" matTooltip="Submit" [disabled]="!employeeForm.valid">Valider </button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="reset" mat-raised-button color="accent" matTooltip="Reset" (click)="resetForm()">Annuler </button>
       </td>
       <td>
         <p *ngIf="dataSaved" style="color:rgb(0, 128, 0);font-size:20px;font-weight:bold" Class="success" align="left">
@@ -112,6 +112,7 @@
  &nbsp;&nbsp;&nbsp;&nbsp;
  <button mat-icon-button aria-label="Example icon button with a delete icon" type="button" mat-raised-button color="accent" matTooltip="Delete" (click)="DeleteData()"><mat-icon>delete</mat-icon></button>
  
+
  <div>
 
   <mat-table  [dataSource]="dataSource" matSort class="mat-elevation-z8" style="box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
@@ -130,61 +131,54 @@
     </ng-container>
 
     <ng-container matColumnDef="EmployeeFirstName">
-      <mat-header-cell  *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
+      <mat-header-cell  *matHeaderCellDef mat-sort-header>Prenom  </mat-header-cell>
       <mat-cell  *matCellDef="let employee"> {{employee.EmployeeFirstName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="EmployeeLastName">
-      <mat-header-cell  *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Nom  </mat-header-cell>
       <mat-cell  *matCellDef="let employee"> {{employee.EmployeeLastName}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="DateofBirth">
-      <mat-header-cell  *matHeaderCellDef mat-sort-header> Date Of Birth </mat-header-cell>
-      <mat-cell  *matCellDef="let employee"> {{employee.DateofBirth | date:'dd-MM-yyyy'}}</mat-cell>
+    <ng-container matColumnDef="EmployeeDateNaiss">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Date Naissance  </mat-header-cell>
+      <mat-cell  *matCellDef="let employee"> {{employee.EmployeeDateNaiss | date:'dd-MM-yyyy'}}</mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="EmployeeDateEmbauche">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Date d'embauche </mat-header-cell>
+      <mat-cell  *matCellDef="let employee"> {{employee.EmployeeDateEmbauche | date:'dd-MM-yyyy'}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="EmailId">
-      <mat-header-cell  *matHeaderCellDef mat-sort-header> Email Id </mat-header-cell>
-      <mat-cell   *matCellDef="let employee"> {{employee.EmailId}}        </mat-cell>
+    <ng-container matColumnDef="EmployeeSalary">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> salaire </mat-header-cell>
+      <mat-cell   *matCellDef="let employee"> {{employee.EmployeeSalary}}        </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="Gender">
-      <mat-header-cell  *matHeaderCellDef mat-sort-header> Gender </mat-header-cell>
-      <mat-cell  *matCellDef="let employee"> {{employee.Gender ==0? 'Male' : 'Female'}} </mat-cell>
+    <ng-container matColumnDef="EmployeeGender">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Gendre  </mat-header-cell>
+      <mat-cell  *matCellDef="let employee"> {{employee.EmployeeGender ==0? 'Male' : 'Female'}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="Country">
-      <mat-header-cell  *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
-      <mat-cell  *matCellDef="let employee"> {{employee.Country}} </mat-cell>
+    <ng-container matColumnDef="EmployeeDesignation">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Poste  </mat-header-cell>
+      <mat-cell  *matCellDef="let employee"> {{employee.EmployeeDesignation}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="State">
-      <mat-header-cell  *matHeaderCellDef mat-sort-header> State </mat-header-cell>
-      <mat-cell  *matCellDef="let employee"> {{employee.State}} </mat-cell>
+    
+    <ng-container matColumnDef="EmployeeAdresse">
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> Addresse </mat-header-cell>
+      <mat-cell  *matCellDef="let employee"> {{employee.EmployeeAdresse}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="City">
-      <mat-header-cell  *matHeaderCellDef mat-sort-header> City </mat-header-cell>
-      <mat-cell  *matCellDef="let employee"> {{employee.City}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Address">
-      <mat-header-cell  *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
-      <mat-cell  *matCellDef="let employee"> {{employee.Address}} </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="Pincode">
-      <mat-header-cell  *matHeaderCellDef mat-sort-header> Pincode </mat-header-cell>
-      <mat-cell  *matCellDef="let employee"> {{employee.Pincode}} </mat-cell>
-    </ng-container>
+  
 
     <ng-container matColumnDef="Edit">
       <mat-header-cell  *matHeaderCellDef mat-sort-header> Edit </mat-header-cell>
 
       <mat-cell  *matCellDef="let employee">
 
-        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" type="button" mat-raised-button color="accent" matTooltip="Edit" (click)="loadEmployeeToEdit(employee.EmpId)"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" type="button" mat-raised-button color="accent" matTooltip="Edit" (click)="loadEmployeeToEdit(employee.EmployeeId)"><mat-icon>edit</mat-icon></button>
         <!--<button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="accent" matTooltip="Edit" (click)="loadEmployeeToEdit(employee.EmpId)">
           <mat-icon>more_vert</mat-icon>
         </button>-->
@@ -193,7 +187,7 @@
 
     <ng-container matColumnDef="Delete">
       <mat-header-cell  *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
-      <mat-cell  *matCellDef="let employee"> <button mat-icon-button aria-label="Example icon button with a delete icon" type="button" mat-raised-button color="accent" matTooltip="Delete" (click)="deleteEmployee(employee.EmpId)"><mat-icon>delete_forever</mat-icon></button></mat-cell>
+      <mat-cell  *matCellDef="let employee"> <button mat-icon-button aria-label="Example icon button with a delete icon" type="button" mat-raised-button color="accent" matTooltip="Delete" (click)="deleteEmployee(employee.EmployeeId)"><mat-icon>delete_forever</mat-icon></button></mat-cell>
     </ng-container>
 
     <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -202,6 +196,7 @@
 
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
+
       </form>
     </mat-card-content>
   </mat-card>
