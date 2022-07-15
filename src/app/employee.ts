@@ -1,13 +1,11 @@
 export class Employee {
-  EmployeeId: string;
-  EmployeeFirstName: string;
-  EmployeeLastName: string;
-  EmployeeDateNaiss: Date;
-  EmployeeDateEmbauche: Date;
-  EmployeeGender: string;
-  EmployeeSalary: string;
-  EmployeeDesignation: string;
-  EmployeeAdresse: string;
-
-  
+  employeeId: string;
+  employeeFirstName: string;
+  employeeLastName: string;
+  employeeDateNaiss: Date;
+  employeeGender: string;
+  employeeDateEmbauche: Date;
+  employeeSalary: string;
+  employeeDesignation: string;
+  employeeAdresse: string;
 }

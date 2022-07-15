@@ -25,6 +25,8 @@ export class EmployeeComponent implements OnInit {
   selection = new SelectionModel<Employee>(true, []);
   employeeIdUpdate = null;
   massage = null;
+
+  filteredData :any[];
   
   CountryId = null;
   StateId = null;
@@ -34,30 +36,31 @@ export class EmployeeComponent implements OnInit {
   isFeMale = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  displayedColumns: string[] = ['select', 'EmployeeFirstName', 'EmployeeLastName', 'EmployeeDateNaiss', 'EmployeeDateNaiss','EmployeeGender','EmployeeDateEmbauche', 'EmployeeSalary', 'EmployeeAdresse', 'EmployeeDesignation', 'Edit', 'Delete'];
+  // displayedColumns: string[] = ['select', 'EmployeeFirstName', 'EmployeeLastName', 'EmployeeDateNaiss','EmployeeGender','EmployeeDateEmbauche', 'EmployeeSalary', 'EmployeeAdresse', 'EmployeeDesignation','EmployeeAdresse', 'Edit', 'Delete'];
+  displayedColumns : string[] = ['select', 'employeeFirstName', 'employeeLastName', 'employeeDateNaiss','employeeGender','employeeDateEmbauche', 'employeeSalary', 'employeeDesignation','employeeAdresse', 'Edit', 'Delete'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private formbulider: FormBuilder, private employeeService: EmployeeService, private _snackBar: MatSnackBar, public dialog: MatDialog) {
-      this.employeeService.getAllEmployee().subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+    //   this.employeeService.getAllEmployee().subscribe(data => {
+    //   this.dataSource = new MatTableDataSource(data);
+    //   this.dataSource.paginator = this.paginator;
+    //   this.dataSource.sort = this.sort;
+    // });
   }
 
   ngOnInit() {
     this.loadAllEmployees();
     this.employeeForm = this.formbulider.group({
       
-      EmployeeFirstName: ['', [Validators.required]],
-      EmployeeLastName: ['', [Validators.required]],
-      EmployeeDateNaiss: ['', [Validators.required]],
-      EmployeeGender: ['', [Validators.required]],
-      EmployeeDateEmbauche: ['', [Validators.required]],
-      EmployeeSalary: ['', [Validators.required]],
-      EmployeeAdresse: ['', [Validators.required]],
-      EmployeeDesignation: ['', [Validators.required]],
+      employeeFirstName: ['', [Validators.required]],
+      employeeLastName: ['', [Validators.required]],
+      employeeDateNaiss: ['', [Validators.required]],
+      employeeGender: ['', [Validators.required]],
+      employeeDateEmbauche: ['', [Validators.required]],
+      employeeSalary: ['', [Validators.required]],
+      employeeDesignation: ['', [Validators.required]],
+      employeeAdresse: ['', [Validators.required]],
       
     });
     //this.FillCountryDDL();
@@ -80,7 +83,7 @@ export class EmployeeComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.EmployeeId + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.employeeId + 1}`;
   }
   
   DeleteData() {
@@ -110,8 +113,9 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.getAllEmployee().subscribe(data => {
       
       this.dataSource = new MatTableDataSource(data);
+      this.filteredData = this.dataSource.filteredData;
       console.log("All Employees");
-      console.log(this.dataSource);
+      console.log(this.filteredData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -127,17 +131,17 @@ export class EmployeeComponent implements OnInit {
     this.employeeService.getEmployeeById(employeeId).subscribe(employee => {
       this.massage = null;
       this.dataSaved = false;
-      this.employeeIdUpdate = employee.EmployeeId;
-      this.employeeForm.controls['EmployeeFirstName'].setValue(employee.EmployeeFirstName);
-      this.employeeForm.controls['LastName'].setValue(employee.EmployeeLastName);
-      this.employeeForm.controls['DateofBirth'].setValue(employee.EmployeeDateNaiss);
-      this.employeeForm.controls['EmployeeGender'].setValue(employee.EmployeeGender);
-      this.employeeForm.controls['EmployeeAdresse'].setValue(employee.EmployeeAdresse);
-      this.employeeForm.controls['EmployeeDesignation'].setValue(employee.EmployeeDesignation);
-      this.employeeForm.controls['EmployeeSalary'].setValue(employee.EmployeeSalary);
+      this.employeeIdUpdate = employee.employeeId;
+      this.employeeForm.controls['EmployeeFirstName'].setValue(employee.employeeFirstName);
+      this.employeeForm.controls['LastName'].setValue(employee.employeeLastName);
+      this.employeeForm.controls['DateofBirth'].setValue(employee.employeeDateNaiss);
+      this.employeeForm.controls['EmployeeGender'].setValue(employee.employeeGender);
+      this.employeeForm.controls['EmployeeAdresse'].setValue(employee.employeeAdresse);
+      this.employeeForm.controls['EmployeeDesignation'].setValue(employee.employeeDesignation);
+      this.employeeForm.controls['EmployeeSalary'].setValue(employee.employeeSalary);
       
-      this.isMale = employee.EmployeeGender.trim() == "0" ? true : false;
-      this.isFeMale = employee.EmployeeGender.trim() == "1" ? true : false;
+      this.isMale = employee.employeeGender.trim() == "0" ? true : false;
+      this.isFeMale = employee.employeeGender.trim() == "1" ? true : false;
     });
 
   }
@@ -156,7 +160,7 @@ export class EmployeeComponent implements OnInit {
         }
       );
     } else {
-      employee.EmployeeId = this.employeeIdUpdate;
+      employee.employeeId = this.employeeIdUpdate;
       this.employeeService.updateEmployee(employee).subscribe(() => {
         this.dataSaved = true;
         this.SavedSuccessful(0);
