@@ -34,7 +34,7 @@ export class EmployeeComponent implements OnInit {
   isFeMale = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  displayedColumns: string[] = ['select', 'EmployeeFirstName', 'EmployeeLastName', 'EmployeeDateNaiss', 'EmployeeDateNaiss','EmployeeGender','EmployeeDateEmbauche', 'EmployeeSalary', 'EmployeeAdresse', 'EmployeeAdresse', 'EmployeeDesignation', 'Edit', 'Delete'];
+  displayedColumns: string[] = ['select', 'EmployeeFirstName', 'EmployeeLastName', 'EmployeeDateNaiss', 'EmployeeDateNaiss','EmployeeGender','EmployeeDateEmbauche', 'EmployeeSalary', 'EmployeeAdresse', 'EmployeeDesignation', 'Edit', 'Delete'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -47,6 +47,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadAllEmployees();
     this.employeeForm = this.formbulider.group({
       
       EmployeeFirstName: ['', [Validators.required]],
@@ -59,7 +60,7 @@ export class EmployeeComponent implements OnInit {
       EmployeeDesignation: ['', [Validators.required]],
       
     });
-    this.FillCountryDDL();
+    //this.FillCountryDDL();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -107,7 +108,10 @@ export class EmployeeComponent implements OnInit {
 
   loadAllEmployees() {
     this.employeeService.getAllEmployee().subscribe(data => {
+      
       this.dataSource = new MatTableDataSource(data);
+      console.log("All Employees");
+      console.log(this.dataSource);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

@@ -9,10 +9,10 @@ import { Employee} from './employee';
   providedIn: 'root'
 })
 export class EmployeeService {
-  url = 'http://localhost:5001/api/Employee';
+  url = 'https://localhost:44367/api/Employee';
   constructor(private http: HttpClient) { }
   getAllEmployee(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.url + '/GetEmployeesList');
+    return this.http.get<Employee[]>(this.url + '/GetAllEmployees');
   }
   getEmployeeById(employeeId: string): Observable<Employee> {
     return this.http.get<Employee>(this.url + '/GetEmployeeDetailsById/' + employeeId);
