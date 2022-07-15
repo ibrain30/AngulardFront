@@ -80,8 +80,8 @@
           <td class="tbl1">
             <span>Gendre  </span>&nbsp;
             <mat-radio-group matTooltip="Enter Gender" formControlName="employeeGender">
-              <mat-radio-button value="0" [checked]="isMale">M</mat-radio-button>&nbsp;&nbsp;
-              <mat-radio-button value="1" [checked]="isFeMale">F</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button value="Masculin" [checked]="isMale">M</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button value="Féminin" [checked]="isFeMale">F</mat-radio-button>&nbsp;&nbsp;
             </mat-radio-group>
             <mat-error>
               <span *ngIf="!employeeForm.get('employeeGender').value && employeeForm.get('employeeGender').touched"></span>
@@ -115,7 +115,7 @@
 
  <div>
 
-  <mat-table  [dataSource]="filteredData" matSort class="mat-elevation-z8" style="box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
+  <mat-table  [dataSource]="dataSource" matSort class="mat-elevation-z8" style="box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
     {{dataSource}}
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
@@ -157,7 +157,7 @@
 
     <ng-container matColumnDef="employeeGender">
       <mat-header-cell  *matHeaderCellDef mat-sort-header> Gendre  </mat-header-cell>
-      <mat-cell  *matCellDef="let employee"> {{employee.employeeGender ==0? 'Male' : 'Female'}} </mat-cell>
+      <mat-cell  *matCellDef="let employee"> {{employee.employeeGender}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="employeeDesignation">
@@ -177,7 +177,7 @@
 
       <mat-cell  *matCellDef="let employee">
 
-        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" type="button" mat-raised-button color="accent" matTooltip="Edit" (click)="loadEmployeeToEdit(employee.EmployeeId)"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" type="button" mat-raised-button color="accent" matTooltip="Edit" (click)="loadEmployeeToEdit(employee.employeeId)"><mat-icon>edit</mat-icon></button>
         <!--<button mat-icon-button aria-label="Example icon button with a vertical three dot icon" color="accent" matTooltip="Edit" (click)="loadEmployeeToEdit(employee.EmpId)">
           <mat-icon>more_vert</mat-icon>
         </button>-->
@@ -186,7 +186,7 @@
 
     <ng-container matColumnDef="Delete">
       <mat-header-cell  *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
-      <mat-cell  *matCellDef="let employee"> <button mat-icon-button aria-label="Example icon button with a delete icon" type="button" mat-raised-button color="accent" matTooltip="Delete" (click)="deleteEmployee(employee.EmployeeId)"><mat-icon>delete_forever</mat-icon></button></mat-cell>
+      <mat-cell  *matCellDef="let employee"> <button mat-icon-button aria-label="Example icon button with a delete icon" type="button" mat-raised-button color="accent" matTooltip="Delete" (click)="deleteEmployee(employee.employeeId)"><mat-icon>delete_forever</mat-icon></button></mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

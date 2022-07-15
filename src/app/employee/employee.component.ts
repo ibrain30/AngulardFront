@@ -24,7 +24,7 @@ export class EmployeeComponent implements OnInit {
   dataSource: MatTableDataSource<Employee>;
   selection = new SelectionModel<Employee>(true, []);
   employeeIdUpdate = null;
-  massage = null;
+  message = null;
 
   filteredData :any[];
   
@@ -64,8 +64,8 @@ export class EmployeeComponent implements OnInit {
       
     });
     //this.FillCountryDDL();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
 
   isAllSelected() {
@@ -121,35 +121,35 @@ export class EmployeeComponent implements OnInit {
     });
   }
   onFormSubmit() {
-    this.dataSaved = false;
+    this.dataSaved = true;
     const employee = this.employeeForm.value;
     this.CreateEmployee(employee);
     this.employeeForm.reset();
   }
 
-  loadEmployeeToEdit(employeeId: string) {
+  loadEmployeeToEdit(employeeId: number) {
     this.employeeService.getEmployeeById(employeeId).subscribe(employee => {
-      this.massage = null;
-      this.dataSaved = false;
+      this.message = null;
+      this.dataSaved = true;
       this.employeeIdUpdate = employee.employeeId;
-      this.employeeForm.controls['EmployeeFirstName'].setValue(employee.employeeFirstName);
-      this.employeeForm.controls['LastName'].setValue(employee.employeeLastName);
-      this.employeeForm.controls['DateofBirth'].setValue(employee.employeeDateNaiss);
-      this.employeeForm.controls['EmployeeGender'].setValue(employee.employeeGender);
-      this.employeeForm.controls['EmployeeAdresse'].setValue(employee.employeeAdresse);
-      this.employeeForm.controls['EmployeeDesignation'].setValue(employee.employeeDesignation);
-      this.employeeForm.controls['EmployeeSalary'].setValue(employee.employeeSalary);
+      this.employeeForm.controls['employeeFirstName'].setValue(employee.employeeFirstName);
+      this.employeeForm.controls['employeeLastName'].setValue(employee.employeeLastName);
+      this.employeeForm.controls['employeeDateNaiss'].setValue(employee.employeeDateNaiss);
+      this.employeeForm.controls['employeeDateEmbauche'].setValue(employee.employeeDateEmbauche);
+      this.employeeForm.controls['employeeGender'].setValue(employee.employeeGender);
+      this.employeeForm.controls['employeeAdresse'].setValue(employee.employeeAdresse);
+      this.employeeForm.controls['employeeDesignation'].setValue(employee.employeeDesignation);
+      this.employeeForm.controls['employeeSalary'].setValue(employee.employeeSalary);
       
-      this.isMale = employee.employeeGender.trim() == "0" ? true : false;
-      this.isFeMale = employee.employeeGender.trim() == "1" ? true : false;
+      this.isMale = employee.employeeGender.trim() == "Masculin" ? true : false;
+      this.isFeMale = employee.employeeGender.trim() == "Féminin" ? true : false;
     });
 
   }
   CreateEmployee(employee: Employee) {
-    //console.log(employee.DateofBirth);
     if (this.employeeIdUpdate == null) {
-     
-
+      console.log("👉️👉️👉️👉️👉️👉️👉️👉️👉️👉️ Added employee")
+      console.log(employee);
       this.employeeService.createEmployee(employee).subscribe(
         () => {
           this.dataSaved = true;
@@ -160,8 +160,12 @@ export class EmployeeComponent implements OnInit {
         }
       );
     } else {
+      console.log("👉️👉️👉️👉️Updated employee Id")
+      console.log(this.employeeIdUpdate);
       employee.employeeId = this.employeeIdUpdate;
-      this.employeeService.updateEmployee(employee).subscribe(() => {
+      console.log("👉️👉️👉️👉️Updated employee✅️✅️✅️✅️✅️✅️");
+      console.log(employee);
+      this.employeeService.createEmployee(employee).subscribe(() => {
         this.dataSaved = true;
         this.SavedSuccessful(0);
         this.loadAllEmployees();
@@ -170,7 +174,7 @@ export class EmployeeComponent implements OnInit {
       });
     }
   }
-  deleteEmployee(employeeId: string) {
+  deleteEmployee(employeeId: number) {
     if (confirm("Are you sure you want to delete this ?")) {
       this.employeeService.deleteEmployeeById(employeeId).subscribe(() => {
         this.dataSaved = true;
@@ -193,7 +197,7 @@ export class EmployeeComponent implements OnInit {
 
   resetForm() {
     this.employeeForm.reset();
-    this.massage = null;
+    this.message = null;
     this.dataSaved = false;
     this.isMale = true;
     this.isFeMale = false;

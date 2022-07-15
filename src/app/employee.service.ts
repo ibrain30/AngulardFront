@@ -10,28 +10,30 @@ import { Employee} from './employee';
 })
 export class EmployeeService {
   url = 'https://localhost:44367/api/Employee';
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
+
   getAllEmployee(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.url + '/GetAllEmployees');
   }
-  getEmployeeById(employeeId: string): Observable<Employee> {
-    return this.http.get<Employee>(this.url + '/GetEmployeeDetailsById/' + employeeId);
+
+  getEmployeeById(employeeId: number): Observable<Employee> {
+    return this.http.get<Employee>(this.url + '/GetEmployeesById/id?id=' + employeeId);
   }
+
   createEmployee(employee: Employee): Observable<Employee> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.post<Employee>(this.url + '/SaveEmployee/',
-      employee, httpOptions);
+    return this.http.post<Employee>(this.url + '/SaveEmployees',employee, httpOptions);
   }
+
+
   updateEmployee(employee: Employee): Observable<Employee> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-
-    return this.http.put<Employee>(this.url + '/UpdateEmployeeDetails/',
-      employee, httpOptions);
+    return this.http.put<Employee>(this.url + '/SaveEmployees', employee, httpOptions);
   }
-  deleteEmployeeById(employeeid: string): Observable<number> {
+
+  deleteEmployeeById(employeeid: number): Observable<number> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.delete<number>(this.url + '/DeleteEmployee?id=' + employeeid,
-      httpOptions);
+    return this.http.delete<number>(this.url + '/DeleteEmployee?id=' + employeeid, httpOptions);
   }
 
   deleteData(user: Employee[]): Observable<string> {
