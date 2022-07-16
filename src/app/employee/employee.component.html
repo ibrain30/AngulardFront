@@ -12,7 +12,11 @@
           <tr>
             <td class="tbl1">
               <mat-form-field class="demo-full-width">
-                <input formControlName="employeeFirstName" matTooltip="Enter Employee FirstName" matInput placeholder="Nom :  " autocomplete="off">
+                <input formControlName="employeeFirstName" matTooltip="Entrer le nom de l'employé" matInput placeholder="Nom :  " autocomplete="off">
+                <mat-error *ngIf="hasError('employeeFirstName', 'required')">Le nom est obligatoire</mat-error>
+                <mat-error *ngIf="!hasError('employeeFirstName', 'minLength')">Le nom doit contenir au moins 2 caractères</mat-error>
+                <mat-error *ngIf="hasError('employeeFirstName', 'maxlength')">Le nom ne doit pas dépasser 25 caractères</mat-error>
+                <mat-error *ngIf="hasError('employeeFirstName', 'pattern')">Le nom ne dois pas contenir de caractères spéciaux</mat-error>
               </mat-form-field>
               <mat-error>
                 <span *ngIf="!employeeForm.get('employeeFirstName').value && employeeForm.get('employeeFirstName').touched"></span>
@@ -20,7 +24,11 @@
             </td>
             <td class="tbl1">
               <mat-form-field class="demo-full-width">
-                <input formControlName="employeeLastName" matTooltip="Enter Employee LastName" matInput placeholder="Prenom : " autocomplete="off">
+                <input formControlName="employeeLastName" matTooltip="Entrer le prénom de l'employé" matInput placeholder="Prenom : " autocomplete="off">
+                <mat-error *ngIf="hasError('employeeLastName', 'required')">Le prénom est obligatoire</mat-error>
+                <mat-error *ngIf="!hasError('employeeLastName', 'minLength')">Le prénom doit contenir au moins 2 caractères</mat-error>
+                <mat-error *ngIf="hasError('employeeLastName', 'maxlength')">Le prénom ne doit pas dépasser 40 caractères</mat-error>
+                <mat-error *ngIf="hasError('employeeLastName', 'pattern')">Le prénom ne dois pas contenir de caractères spéciaux</mat-error>
               </mat-form-field>
               <mat-error>
                 <span *ngIf="!employeeForm.get('employeeLastName').value && employeeForm.get('employeeLastName').touched"></span>
@@ -28,9 +36,10 @@
             </td>
             <td class="tbl1">
               <mat-form-field class="demo-full-width">
-                <input matInput [matDatepicker]="picker" matTooltip="Enter Date Of Birth" formControlName="employeeDateNaiss" placeholder="Date de Naissance : " autocomplete="off">
+                <input [min]="minDate" [max]="maxDate" matInput [matDatepicker]="picker" matTooltip="Entrer la date de naissance" formControlName="employeeDateNaiss" placeholder="Date de Naissance : " autocomplete="off">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="hasError('employeeDateNaiss', 'required')">La date de naissance est obligatoire</mat-error>
               </mat-form-field>
               <mat-error>
                 <span *ngIf="!employeeForm.get('employeeDateNaiss').value && employeeForm.get('employeeDateNaiss').touched"></span>
@@ -38,9 +47,10 @@
             </td>
             <td class="tbl1">
               <mat-form-field class="demo-full-width">
-                <input matInput [matDatepicker]="picker1" matTooltip="Enter Date Of Birth" formControlName="employeeDateEmbauche" placeholder="Date d'embauche : " autocomplete="off">
+                <input [min]="minDateEmb" [max]="maxDateEmb" matInput [matDatepicker]="picker1" matTooltip="Entrer la date d'embauche" formControlName="employeeDateEmbauche" placeholder="Date d'embauche : " autocomplete="off">
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="hasError('employeeDateEmbauche', 'required')">La date de d'embauche est obligatoire</mat-error>
               </mat-form-field>
               <mat-error>
                 <span *ngIf="!employeeForm.get('employeeDateEmbauche').value && employeeForm.get('employeeDateEmbauche').touched"></span>
@@ -52,7 +62,10 @@
         <tr>
           <td class="tbl1">
             <mat-form-field class="demo-full-width">
-              <input formControlName="employeeDesignation" matTooltip="Enter Employee FirstName" matInput placeholder="Poste : " autocomplete="off">
+              <input formControlName="employeeDesignation" matTooltip="Entrer le poste" matInput placeholder="Poste : " autocomplete="off">
+              <mat-error *ngIf="hasError('employeeDesignation', 'required')">La désignation du poste est obligatoire</mat-error>
+              <mat-error *ngIf="!hasError('employeeDesignation', 'minLength')">La désignation doit contenir au moins 2 caractères</mat-error>
+              <mat-error *ngIf="hasError('employeeDesignation', 'pattern')">La désignation ne dois pas contenir de caractères spéciaux</mat-error>
             </mat-form-field>
             <mat-error>
               <span *ngIf="!employeeForm.get('employeeDesignation').value && employeeForm.get('employeeDesignation').touched"></span>
@@ -61,7 +74,10 @@
 
           <td class="tbl1">
             <mat-form-field class="demo-full-width">
-              <input formControlName="employeeSalary" matTooltip="employeeSalary" matInput placeholder="Salaire : " autocomplete="off">
+              <input (keypress)="numberOnly($event)" #input maxlength="10" formControlName="employeeSalary" matTooltip="Entrer le salaire" matInput placeholder="Salaire : " autocomplete="off">
+              <mat-error *ngIf="hasError('employeeSalary', 'required')">Le salaire est obligatoire</mat-error>
+              <mat-error *ngIf="!hasError('employeeSalary', 'minLength')">Le salaire doit contenir au moins 5 caractères</mat-error>
+              <!-- <mat-error *ngIf="hasError('employeeSalary', 'pattern')">Le salaire ne dois pas contenir de caractères spéciaux</mat-error> -->
             </mat-form-field>
             <mat-error>
               <span *ngIf="!employeeForm.get('employeeSalary').value && employeeForm.get('employeeSalary').touched"></span>
@@ -70,7 +86,10 @@
 
           <td class="tbl1">
             <mat-form-field class="demo-full-width">
-              <input formControlName="employeeAdresse" matTooltip="employeeAdresse" matInput placeholder="Adresse : " autocomplete="off">
+              <input formControlName="employeeAdresse" matTooltip="Entrer l'adresse" matInput placeholder="Adresse : " autocomplete="off">
+              <mat-error *ngIf="hasError('employeeAdresse', 'required')">L'adresse est obligatoire</mat-error>
+              <mat-error *ngIf="!hasError('employeeAdresse', 'minLength')">L'adresse doit contenir au moins 2 caractères</mat-error>
+              <mat-error *ngIf="hasError('employeeAdresse', 'pattern')">L'adresse ne dois pas contenir de caractères spéciaux</mat-error>
             </mat-form-field>
             <mat-error>
               <span *ngIf="!employeeForm.get('employeeAdresse').value && employeeForm.get('employeeAdresse').touched"></span>
@@ -80,9 +99,12 @@
           <td class="tbl1">
             <span>Gendre  </span>&nbsp;
             <mat-radio-group matTooltip="Enter Gender" formControlName="employeeGender">
-              <mat-radio-button value="Masculin" [checked]="isMale">M</mat-radio-button>&nbsp;&nbsp;
-              <mat-radio-button value="Féminin" [checked]="isFeMale">F</mat-radio-button>&nbsp;&nbsp;
+              <!-- <mat-radio-button value="Masculin" [checked]="isMale">M</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button value="Féminin" [checked]="isFeMale">F</mat-radio-button>&nbsp;&nbsp; -->
+              <mat-radio-button value="Masculin">M</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button value="Féminin">F</mat-radio-button>&nbsp;&nbsp;
             </mat-radio-group>
+            <mat-error *ngIf="hasError('employeeGender', 'required')">Le genre est obligatoire</mat-error>
             <mat-error>
               <span *ngIf="!employeeForm.get('employeeGender').value && employeeForm.get('employeeGender').touched"></span>
             </mat-error>

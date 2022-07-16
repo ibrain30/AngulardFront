@@ -18,6 +18,15 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 
 export class EmployeeComponent implements OnInit {
+
+  //Control DateNaiss
+  year  = new Date().getFullYear();
+  month = new Date().getMonth();
+  day   = new Date().getDate();
+  maxDate  = new Date(this.year -18, this.month, this.day);
+  minDate = new Date(1911, 1, 1);
+  maxDateEmb = new Date(this.year,this.month,this.day);
+  minDateEmb = new Date(1911, 1, 1);
   dataSaved = false;
   employeeForm: any;
   allEmployees: Observable<Employee[]>;
@@ -28,40 +37,36 @@ export class EmployeeComponent implements OnInit {
 
   filteredData :any[];
   
-  CountryId = null;
-  StateId = null;
-  CityId = null;
   SelectedDate = null;
   isMale = true;
   isFeMale = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  // displayedColumns: string[] = ['select', 'EmployeeFirstName', 'EmployeeLastName', 'EmployeeDateNaiss','EmployeeGender','EmployeeDateEmbauche', 'EmployeeSalary', 'EmployeeAdresse', 'EmployeeDesignation','EmployeeAdresse', 'Edit', 'Delete'];
   displayedColumns : string[] = ['select', 'employeeFirstName', 'employeeLastName', 'employeeDateNaiss','employeeGender','employeeDateEmbauche', 'employeeSalary', 'employeeDesignation','employeeAdresse', 'Edit', 'Delete'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private formbulider: FormBuilder, private employeeService: EmployeeService, private _snackBar: MatSnackBar, public dialog: MatDialog) {
-    //   this.employeeService.getAllEmployee().subscribe(data => {
-    //   this.dataSource = new MatTableDataSource(data);
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
-    // });
+    
   }
 
   ngOnInit() {
     this.loadAllEmployees();
+    //Control DateNaiss
+    if(this.maxDate < new Date()){
+      this.maxDate.setDate(this.maxDate.getDate() + 1);
+      this.minDate.setDate(this.minDate.getDate() + 1);
+    }
+
     this.employeeForm = this.formbulider.group({
-      
-      employeeFirstName: ['', [Validators.required]],
-      employeeLastName: ['', [Validators.required]],
+      employeeFirstName: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(25),Validators.pattern('^[A-Za-zéàèîôêûïëüö -]+$')]],
+      employeeLastName: ['', [Validators.required,Validators.minLength(2),Validators.maxLength(40),Validators.pattern('^[A-Za-z éàèîôêûïëüö-]+$')]],
       employeeDateNaiss: ['', [Validators.required]],
       employeeGender: ['', [Validators.required]],
       employeeDateEmbauche: ['', [Validators.required]],
-      employeeSalary: ['', [Validators.required]],
-      employeeDesignation: ['', [Validators.required]],
-      employeeAdresse: ['', [Validators.required]],
-      
+      employeeSalary: ['', [Validators.required, Validators.minLength(5),Validators.maxLength(10)]],
+      employeeDesignation: ['', [Validators.required,Validators.minLength(2),Validators.pattern('^[A-Za-z éàèîôêûïëüö-]+$')]],
+      employeeAdresse: ['', [Validators.required,Validators.minLength(2),Validators.pattern('^[A-Za-z0-9 éàèîôêûïëüö.-]+$')]],
     });
     //this.FillCountryDDL();
     // this.dataSource.paginator = this.paginator;
@@ -227,4 +232,17 @@ export class EmployeeComponent implements OnInit {
       });
     }
   }
+
+  public hasError = (controlName: string, errorName: string) =>{
+    return this.employeeForm.controls[controlName].hasError(errorName);
+  }
+
+  numberOnly(event: { which: any; keyCode: any; }): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
+
 }
